@@ -11,7 +11,7 @@ defmodule Hubotex.Robot do
   end
 
   def respond(message) do
-    IO.puts "#{message}"
+    message
   end
 
   defp do_match(message) do
