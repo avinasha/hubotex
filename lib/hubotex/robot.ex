@@ -6,8 +6,7 @@ defmodule Hubotex.Robot do
   end
 
   def match(message) do
-    message = do_match(message)
-    message
+    do_match(message)
   end
 
   def respond(message) do
@@ -15,12 +14,10 @@ defmodule Hubotex.Robot do
   end
 
   defp do_match(message) do
-    result = {:nomatch, message}
     cond do
-      Regex.match?(~r/hello/, message) -> result = {:ok, "Hai there!"}
-      Regex.match?(~r/goodbye/, message) -> result = {:ok, "Oh! Dont leave!"}
-      true -> 
+      Regex.match?(~r/hello/, message) -> {:ok, "Hai there!"}
+      Regex.match?(~r/goodbye/, message) -> {:ok, "Oh! Dont leave!"}
+      true -> {:nomatch, message}
     end
-    result
   end
 end
