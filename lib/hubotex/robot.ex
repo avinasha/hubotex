@@ -16,8 +16,10 @@ defmodule Hubotex.Robot do
 
   defp do_match(message) do
     result = {:nomatch, message}
-    if Regex.match?(~r/hello/, message) do
-      result = {:ok, "Hai there!"}
+    cond do
+      Regex.match?(~r/hello/, message) -> result = {:ok, "Hai there!"}
+      Regex.match?(~r/goodbye/, message) -> result = {:ok, "Oh! Dont leave!"}
+      true -> 
     end
     result
   end
