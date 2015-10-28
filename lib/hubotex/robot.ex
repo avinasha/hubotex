@@ -6,11 +6,18 @@ defmodule Hubotex.Robot do
   end
 
   def match(message) do
-    IO.puts "Nothing to match"
+    message = do_match(message)
     message
   end
 
   def respond(message) do
     IO.puts "#{message}"
+  end
+
+  defp do_match(message) do
+    if Regex.match?(~r/hello/, message) do
+      message = "Hai there!"
+    end
+    message
   end
 end
