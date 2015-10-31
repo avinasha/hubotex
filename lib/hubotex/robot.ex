@@ -15,8 +15,8 @@ defmodule Hubotex.Robot do
 
   def rules do
     [
-      {~r/hello/, &hello_consequence/1},
-      {~r/goodbye/, &goodbye_consequence/1}
+      Hubotex.Rule.Hello.rule,
+      Hubotex.Rule.Goodbye.rule
     ]
   end
 
@@ -30,12 +30,24 @@ defmodule Hubotex.Robot do
   defp rule_match?(regex, message) do
     Regex.match?(regex, message)
   end
+end
 
-  defp hello_consequence(_message) do
-    "Hai there!"
+defmodule Hubotex.Rule.Hello do
+  def rule do
+    {~r/hello/, &consequence/1}
   end
 
-  defp goodbye_consequence(_message) do
+  defp consequence(_message) do
+    "Hai there!"
+  end
+end
+
+defmodule Hubotex.Rule.Goodbye do
+  def rule do
+    {~r/goodbye/, &consequence/1}
+  end
+
+  defp consequence(_message) do
     "Oh! Dont leave!"
   end
 end
