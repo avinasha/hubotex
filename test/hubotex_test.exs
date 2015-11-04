@@ -3,8 +3,8 @@ defmodule Hubotex.RobotTest do
 
   setup do 
     {:ok, robot} = Hubotex.Robot.start_link([
-      Hubotex.Rule.Hello.rule,
-      Hubotex.Rule.Goodbye.rule
+      {~r/hello/, fn _msg -> "Hai there!" end},
+      {~r/goodbye/, fn _msg -> "Oh! Dont leave!" end}
     ])
     
     {:ok, robot: robot}
