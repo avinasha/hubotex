@@ -2,7 +2,11 @@ defmodule Hubotex.RobotTest do
   use ExUnit.Case
 
   setup do 
-    {:ok, robot} = Hubotex.Robot.start_link
+    {:ok, robot} = Hubotex.Robot.start_link([
+      Hubotex.Rule.Hello.rule,
+      Hubotex.Rule.Goodbye.rule
+    ])
+    
     {:ok, robot: robot}
   end
   
