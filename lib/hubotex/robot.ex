@@ -19,21 +19,17 @@ defmodule Hubotex.Robot do
   ### CallBacks ###
 
   def handle_call({:accept, message}, _from, state) do
-    {:reply, do_receive(message), state}
+    {:reply, do_accept(message), state}
   end
 
 
-  defp do_receive(message) do
+  defp do_accept(message) do
     message
-    |> match
-    |> respond
+    |> do_match
+    |> do_respond
   end
 
-  defp match(message) do
-    do_match(message)
-  end
-
-  defp respond(message) do
+  defp do_respond(message) do
     message
   end
 
