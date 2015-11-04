@@ -21,4 +21,9 @@ defmodule Hubotex.RobotTest do
   test "Hubotex.Robot.accept/1 responds with the right message for no match" do
     assert Hubotex.Robot.accept("nomatch") == {:nomatch, "nomatch"}
   end
+
+  test "Hubotex.Robot.accept/1 responds with the right message for multiple match" do
+    assert Hubotex.Robot.accept("hello. goodbye!") == {:ok, "Hai there!\nOh! Dont leave!"}
+  end
+
 end

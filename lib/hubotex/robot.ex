@@ -48,7 +48,7 @@ defmodule Hubotex.Robot do
   end
 
   defp acc_results({message, []}), do: {:nomatch, message}
-  defp acc_results({_message, results}), do: Enum.reduce(results, fn {:ok, result}, acc -> {:ok, "#{acc} \n #{result}"} end)
+  defp acc_results({_message, results}), do: Enum.reduce(results, fn {:ok, result}, {:ok, response} -> {:ok, "#{response}\n#{result}"} end)
 
 
 
