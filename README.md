@@ -11,6 +11,18 @@ We should have a API to represent and interact with the rules. These rules could
 
 Make use of the supervision trees.
 
-#### First cut
+#### To Do
 
-Create the backbone to convert `Request message` => `Response`.
+##### Matcher
+- [ ] Currently the matcher responds with the consequence of the first matcher. Ideally, consequences of all matchs should run and their results should be collated and responsed. But a match can specify to stop the matching process and respond with the results collated until now.
+- [ ] Matching must be parallelized
+- [ ] A matcher must support names. A matcher can be named and futher can be addressed using the name. This allows the exsistance of more than one robot running parallely.
+
+##### Adapter
+- [ ] Write a basic adapter (shell?)
+- [ ] Adapter for Slack
+
+##### Rules
+Each rule is a pair of `regex, consequence`. Each consequnce is a function which accepts the message and reacts to it.
+- [ ] Rule can be specified as a Elixir module which has a function rule which returns one or more `regex,consequence` pairs.
+- [ ] Rule can be written in other languages than Elixir. Start with Ruby (Execution using ports)
