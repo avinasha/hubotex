@@ -1,23 +1,40 @@
 defmodule Hubotex.Robot do
-  def receive(message) do
-    message
-    |> match
-    |> respond
+  use GenServer
+  
+  def start_link do
+    GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
-
-  def match(message) do
-    do_match(message)
+  
+  def accept(message) do
+    GenServer.call(__MODULE__, {:accept, message})
   end
-
-  def respond(message) do
-    message
-  end
-
+  
   def rules do
     [
       Hubotex.Rule.Hello.rule,
       Hubotex.Rule.Goodbye.rule
     ]
+  end
+
+  ### CallBacks ###
+
+  def handle_call({:accept, message}, _from, state) do
+    {:reply, do_receive(message), state}
+  end
+
+
+  defp do_receive(message) do
+    message
+    |> match
+    |> respond
+  end
+
+  defp match(message) do
+    do_match(message)
+  end
+
+  defp respond(message) do
+    message
   end
 
   defp do_match(message) do
