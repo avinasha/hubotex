@@ -19,21 +19,36 @@ defmodule Hubotex.Robot do
 
   
   defp do_accept(message, state) do
-    do_match({message, state})
+    {message, state}
+    |> do_match
     |> do_respond
   end
 
   defp do_match({message, state}) do
-    Enum.reduce_while(state[:rules], {:nomatch, message}, fn rule, acc ->
-        {regex, consequence} = rule
-        if rule_match?(regex, message), do: {:halt, {:ok, consequence.(message)}}, else: {:cont, acc}
+    {message, state[:rules]}
+    |> map_rules
+    |> reject_no_match
+    |> acc_results
+  end
+
+  defp do_respond(message), do: message
+
+
+  defp map_rules({message, rules}) do
+    results = Enum.map(rules, fn rule ->
+      {regex, consequence} = rule
+      if rule_match?(regex, message), do: {:ok, consequence.(message)}, else: {:nomatch}
     end)
+    {message, results}
   end
 
-  defp do_respond(message) do
-    message
+  defp reject_no_match({message, results}) do
+    results = Enum.reject(results, fn result -> result == {:nomatch} end)
+    {message, results}
   end
 
+  defp acc_results({message, []}), do: {:nomatch, message}
+  defp acc_results({_message, results}), do: Enum.reduce(results, fn {:ok, result}, acc -> {:ok, "#{acc} \n #{result}"} end)
 
 
 
@@ -41,6 +56,3 @@ defmodule Hubotex.Robot do
     Regex.match?(regex, message)
   end
 end
-
-
-
