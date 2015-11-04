@@ -18,8 +18,8 @@ Make use of the supervision trees.
 
 ##### Matcher
 - [ ] Currently the matcher responds with the consequence of the first matcher. Ideally, consequences of all matchs should run and their results should be collated and responsed. But a match can specify to stop the matching process and respond with the results collated until now.
-- [ ] Matching must be parallelized
 - [ ] A matcher must support names. A matcher can be named and futher can be addressed using the name. This allows the exsistance of more than one robot running parallely.
+- [ ] Matching must be parallelized
 
 ##### Adapter
 - [ ] Write a basic adapter (shell?)
