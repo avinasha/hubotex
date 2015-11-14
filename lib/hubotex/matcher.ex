@@ -7,7 +7,7 @@ defmodule Hubotex.Matcher do
   end
 
   defp map_rules({message, rules}) do
-    results = Enum.map(rules, fn rule ->
+    results = Parallel.pmap(rules, fn rule ->
       {regex, consequence} = rule
       if rule_match?(regex, message), do: {:ok, consequence.(message)}, else: {:nomatch}
     end)
