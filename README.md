@@ -19,7 +19,7 @@ Make use of the supervision trees.
 
 ##### Matcher
 - [x] Currently the matcher responds with the consequence of the first matcher. Ideally, consequences of all matchs should run and their results should be collated and responsed. But a match can specify to stop the matching process and respond with the results collated until now.
-- [ ] Matching must be parallelized (#3)
+- [ ] Matching must be parallelized ([#3](https://github.com/avinasha/hubotex/pull/3))
 
 ##### Adapter
 - [ ] Write a basic adapter (shell?)
