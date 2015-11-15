@@ -26,8 +26,8 @@ defmodule Hubotex.Matcher do
   
   defp acc_results({message, []}), do: {:nomatch, message}
   defp acc_results({_message, results}) do
-    Enum.reduce(results, fn {:ok, result}, {:ok, response} ->
-      {:ok, "#{response}\n#{result}"}
+    Enum.reduce(results, fn {:ok, result}, {:ok, acc_response} ->
+      {:ok, "#{acc_response}\n#{result}"}
     end)
   end
   
