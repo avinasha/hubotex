@@ -15,6 +15,8 @@ defmodule Hubotex.Robot do
     {:reply, do_accept(message, state), state}
   end
 
+  ### end CallBacks ###
+
   defp do_accept(message, state) do
     {message, state}
     |> do_match
