@@ -1,4 +1,5 @@
 defmodule Hubotex.Matcher do
+
   def match(message, rules) do
     {message, rules}
     |> map_rules
@@ -9,7 +10,11 @@ defmodule Hubotex.Matcher do
   defp map_rules({message, rules}) do
     results = Enum.map(rules, fn rule ->
       {regex, consequence} = rule
-      if rule_match?(regex, message), do: {:ok, consequence.(message)}, else: {:nomatch}
+      if rule_match?(regex, message) do
+        {:ok, consequence.(message)}
+      else
+        {:nomatch}
+      end
     end)
     {message, results}
   end
@@ -20,7 +25,11 @@ defmodule Hubotex.Matcher do
   end
   
   defp acc_results({message, []}), do: {:nomatch, message}
-  defp acc_results({_message, results}), do: Enum.reduce(results, fn {:ok, result}, {:ok, response} -> {:ok, "#{response}\n#{result}"} end)
+  defp acc_results({_message, results}) do
+    Enum.reduce(results, fn {:ok, result}, {:ok, acc_response} ->
+      {:ok, "#{acc_response}\n#{result}"}
+    end)
+  end
   
   defp rule_match?(regex, message) do
     Regex.match?(regex, message)
